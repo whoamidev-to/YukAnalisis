@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6d4aff">
+  <title>Yuk Analisis</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">Y</span><div><b>Yuk Analisis</b><small>Ringkasan kegiatanmu</small></div></div>
+      <button id="editName" class="avatar" aria-label="Ubah nama">AS</button>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <p class="eyebrow">DASHBOARD</p>
+        <h1>Halo, <span id="userName">Aspianto</span> 👋</h1>
+        <p>Pantau kegiatan dan capaian dalam satu tempat.</p>
+      </section>
+
+      <section class="toolbar">
+        <label>Periode analisis
+          <select id="period">
+            <option value="7">7 hari terakhir</option>
+            <option value="30" selected>30 hari terakhir</option>
+            <option value="90">90 hari terakhir</option>
+            <option value="all">Semua data</option>
+          </select>
+        </label>
+        <button class="primary" id="addActivity">+ Tambah kegiatan</button>
+      </section>
+
+      <section class="stats">
+        <article class="stat"><span>Total kegiatan</span><strong id="totalActivities">0</strong><small>Dalam periode</small></article>
+        <article class="stat"><span>Kehadiran</span><strong id="attendanceRate">—</strong><small>Rata-rata hadir</small></article>
+        <article class="stat"><span>Capaian target</span><strong id="achievementRate">—</strong><small>Target tercapai</small></article>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="panel-head"><div><h2>Aktivitas dari waktu ke waktu</h2><p>Jumlah kegiatan per tanggal</p></div></div>
+        <div class="chart-wrap"><svg id="chart" viewBox="0 0 600 220" role="img" aria-label="Grafik aktivitas"></svg></div>
+        <div class="chart-legend"><span><i></i> Kegiatan</span></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><div><h2>Daftar kegiatan</h2><p>Catatan kegiatan pada periode terpilih</p></div></div>
+        <div id="activityList" class="activity-list"></div>
+        <p id="emptyState" class="empty">Belum ada kegiatan. Tambahkan kegiatan pertamamu.</p>
+      </section>
+
+      <section class="panel export-panel">
+        <div><h2>Ekspor laporan</h2><p>Unduh data kegiatan untuk diolah atau dibagikan.</p></div>
+        <div class="export-actions"><button id="exportCsv">Ekspor Excel (CSV)</button><button id="exportWord">Ekspor Word</button></div>
+      </section>
+    </main>
+    <nav class="bottom-nav"><span class="active">◉<small>Ringkasan</small></span><span>▤<small>Kegiatan</small></span><span>▥<small>Laporan</small></span></nav>
+  </div>
+
+  <dialog id="activityDialog">
+    <form id="activityForm" method="dialog">
+      <div class="dialog-head"><h2 id="dialogTitle">Tambah kegiatan</h2><button type="button" class="close" id="closeDialog">×</button></div>
+      <label>Nama kegiatan<input id="activityName" required maxlength="100" placeholder="Contoh: Latihan rutin"></label>
+      <div class="two-col">
+        <label>Tanggal mulai<input id="startDate" type="date" required></label>
+        <label>Tanggal selesai<input id="endDate" type="date" required></label>
+      </div>
+      <div class="two-col">
+        <label>Hadir<input id="present" type="number" min="0" value="0" required></label>
+        <label>Total peserta<input id="total" type="number" min="0" value="0" required></label>
+      </div>
+      <div class="two-col">
+        <label>Target capaian<input id="target" type="number" min="0" value="0" required></label>
+        <label>Realisasi<input id="actual" type="number" min="0" value="0" required></label>
+      </div>
+      <label>Catatan<textarea id="notes" rows="3" placeholder="Catatan singkat (opsional)"></textarea></label>
+      <p id="formError" class="error"></p>
+      <button class="primary full" type="submit">Simpan kegiatan</button>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
